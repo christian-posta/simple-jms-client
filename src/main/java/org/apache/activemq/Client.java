@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class Client {
 
     private static String brokerUrl = System.getProperty("brokerUrl", "tcp://localhost:61616");
+    private static String destinationName = System.getProperty("queueName", "FOO.QUEUE");
 
     private static final Logger LOG = LoggerFactory.getLogger(Client.class);
 
@@ -22,7 +23,7 @@ public class Client {
 
         Connection connection = cf.createConnection();
         Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
-        Destination dest = session.createQueue("FOO.QUEUE");
+        Destination dest = session.createQueue(destinationName);
         MessageConsumer consumer = session.createConsumer(dest);
 
         Message msg = consumer.receive(TimeUnit.SECONDS.toMillis(10));

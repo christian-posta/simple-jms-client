@@ -13,6 +13,10 @@ To turn on trace logging, for example, run with this command-line param:
     
     mvn -Pclient -DbrokerUrl=tcp://localhost:61616?trace=true
     
+To target a specific queue, do this
+    
+    mvn -Pclient -DbrokerUrl=tcp://localhost:61616?trace=true -DqueueName=FOO.QUEUE.NAME
+    
 To run the broker:
 
     mvn -Pbroker
