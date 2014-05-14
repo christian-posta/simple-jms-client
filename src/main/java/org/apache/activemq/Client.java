@@ -8,10 +8,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class Client {
 
-    public static void main(String[] args) throws Exception{
-        ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory("tcp://localhost:61616?trace=true");
+    private static String brokerUrl = System.getProperty("brokerUrl", "tcp://localhost:61616");
 
-//        cf.getPrefetchPolicy().setQueuePrefetch(1);
+    public static void main(String[] args) throws Exception {
+        ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory(getBrokerUrl());
+
 
         Connection connection = cf.createConnection();
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -22,5 +23,9 @@ public class Client {
 
         consumer.close();
         connection.close();
+    }
+
+    public static String getBrokerUrl() {
+        return brokerUrl;
     }
 }
